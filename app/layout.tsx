@@ -6,8 +6,9 @@ import CanvasBackground from './components/CanvasBackground'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BRING',
-  description: 'BRING - Strategic brand consultancy',
+  metadataBase: new URL('https://bring-minto.vercel.app'),
+  title: 'BRING - Beautiful Business',
+  description: 'BRING is a creative agency that helps brands create beautiful business.',
   openGraph: {
     title: 'BRING',
   },

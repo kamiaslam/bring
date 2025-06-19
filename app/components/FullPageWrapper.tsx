@@ -12,19 +12,17 @@ export default function FullPageWrapper({ children }: FullPageWrapperProps) {
   useEffect(() => {
     if (typeof window === 'undefined' || !fullpageRef.current) return
 
+    let fpInstance: any = null
+
     const loadFullPage = async () => {
       try {
         const fullpage = (await import('fullpage.js')).default
         await import('fullpage.js/dist/fullpage.css')
 
-        const licenseKey = 'TX6L9-29OSK-PT1KK-2JSLI-JZLYM'
-
-        const fpInstance = new fullpage('#fullpage', {
-          credits: {
-            enabled: false
-          },
+        const options = {
+          licenseKey: 'TX6L9-29OSK-PT1KK-2JSLI-JZLYM',
+          credits: { enabled: false },
           normalScrollElements: '.section_page-content.is-fixed',
-          licenseKey: licenseKey,
           scrollingSpeed: 700,
           navigation: true,
           navigationPosition: 'right',
@@ -35,22 +33,24 @@ export default function FullPageWrapper({ children }: FullPageWrapperProps) {
           paddingTop: '0px',
           paddingBottom: '0px',
           responsiveWidth: 991,
-          onLeave: function(origin: any, destination: any, direction: any) {
-            // Handle section leave if needed
-          }
-        })
-
-        return () => {
-          if (fpInstance && fpInstance.destroy) {
-            fpInstance.destroy('all')
+          afterLoad: function(origin: any, destination: any, direction: string) {
+            // Handle section load if needed
           }
         }
+
+        fpInstance = new fullpage('#fullpage', options)
       } catch (error) {
         console.error('Error loading fullpage.js:', error)
       }
     }
 
     loadFullPage()
+
+    return () => {
+      if (fpInstance && fpInstance.destroy) {
+        fpInstance.destroy('all')
+      }
+    }
   }, [])
 
   return (

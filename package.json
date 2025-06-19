@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fullpage/react-fullpage": "^0.1.48",
     "@vimeo/player": "^2.21.0",
     "fullpage.js": "^4.0.20",
     "gsap": "^3.12.2",
